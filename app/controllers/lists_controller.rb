@@ -12,6 +12,9 @@ class ListsController < ApplicationController
   def show
     # render 'new'
   end
+  def shows
+    # render 'new'
+  end
 
   # GET /lists/new
   def new
