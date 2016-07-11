@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @list.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @list.description %>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @list.text %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @list.price %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @list.quantity %>
+</p>
+
+<p>
+  <strong>Vat:</strong>
+  <%= @list.vat %>
+</p>
+
+<p>
+  <strong>Total:</strong>
+  <%= @list.total %>
+</p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @list.product_id %>
+</p>
+
+<%= link_to 'Edit', edit_list_path(@list), class: 'btn btn-primary btn-xs' %> |
+<%= link_to 'Back', lists_path, class: 'btn btn-warning btn-xs' %>
