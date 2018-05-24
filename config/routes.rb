@@ -1,17 +1,21 @@
 Rails.application.routes.draw do
   resources :lists
+  namespace :api, defaults: {format: 'json'} do
+    get '/lists' => 'lists#index'
+    get '/lists/:id' => 'lists#show'
+    get '/lists/?:title' => 'lists#title'
+  end
+  get '/send_email' => "lists#send_email"
   root 'lists#index'
 
-  # root :to => "lists#show", :id => '13'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-
+  # get '/search_list' => 'lists#search_list'
   # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

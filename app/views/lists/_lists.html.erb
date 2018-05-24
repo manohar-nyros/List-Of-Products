@@ -1,0 +1,40 @@
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= sortable "title" %></th>
+      <th><%= sortable "description" %></th>
+      <th><%= sortable "text" %></th>
+      <th><%= sortable "price" %></th>
+      <th><%= sortable "quantity" %></th>
+      <th><%= sortable "photo" %></th>
+      <th><%= sortable "vat" %></th>
+      <th><%= sortable "total" %></th>
+      <th><%= sortable "product_id" %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+<tbody>
+    <% @lists.each do |list| %>
+      <tr>
+        <td><%= list.title %></td>
+        <td><%= list.description %></td>
+        <td><%= list.text %></td>
+        <td><%= list.price %></td>
+        <td><%= list.quantity %></td>
+        <td><%= image_tag list.photo %></td>
+        <td><%= list.vat %></td>
+        <td><%= list.total %></td>
+        <td><%= list.product_id %></td>
+	<td><%= link_to 'Show', list, method: :get, :remote => true, class: 'show_list btn btn-primary btn-xs' %></td>
+
+	<td><%= link_to 'Edit', edit_list_path(list),   class: 'btn btn-info btn-xs' %></td>
+
+	<td><%= link_to 'Destroy', list, method: :delete, data: { confirm: 'Are you sure?' }, 
+        :remote => true, :class => 'delete_list btn btn-danger btn-xs' %></td>
+	 </tr>
+	 <%end%>
+</tbody>    
+</table>

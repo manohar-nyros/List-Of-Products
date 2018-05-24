@@ -53,4 +53,5 @@ config.action_mailer.smtp_settings = {
  :authentication       => 'plain',
  :enable_starttls_auto => true
   }
+  config.gem "mislav-will_paginate", :lib => "will_paginate", :source => "http://gems.github.com"
 end

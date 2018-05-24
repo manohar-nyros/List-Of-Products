@@ -4,7 +4,6 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Hi</h1>
 <table class="table">
   <thead>
     <tr>
@@ -13,6 +12,7 @@
       <th>Text</th>
       <th>Price</th>
       <th>Quantity</th>
+      <th>Photo</th>
       <th>Vat(20%)</th>
       <th>Total</th>
       <th>Product</th>
@@ -20,17 +20,20 @@
   </thead>
 
   <tbody>
+      <% @lists.each do |item|%>
       <tr>
-        <td><%= @list.title %></td>
-        <td><%= @list.description %></td>
-        <td><%= @list.text %></td>
-        <td><%= @list.price %></td>
-        <td><%= @list.quantity %></td>
-        <td><%= @list.vat %></td>
-        <td><%= @list.total %></td>
-        <td><%= @list.product_id %></td>
-      </tr>
-
+        <td><%= item.title %></td>
+        <td><%= item.description %></td>
+        <td><%= item.text %></td>
+        <td><%= item.price %></td>
+        <td><%= item.quantity %></td>
+        <td><%= image_tag item.photo.url %></td>
+        <td><%= item.vat %></td>
+        <td><%= item.total %></td>
+        <td><%= item.product_id %></td>
+      
+   </tr>
+   <% end %>
   </tbody>
 </table>
 </body>

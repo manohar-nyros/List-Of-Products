@@ -10,12 +10,11 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>
   </div>
-  <div class="field">
+   <div class="field">
     <%= f.label :description %><br>
     <%= f.text_field :description %>
   </div>
@@ -30,6 +29,12 @@
   <div class="field">
     <%= f.label :quantity %><br>
     <%= f.number_field :quantity %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :photo %>
+    <%= f.file_field :photo %>
   </div>
   <div class="field" >
     <%=  f.hidden_field :vat %>

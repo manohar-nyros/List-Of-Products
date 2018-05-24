@@ -1,44 +1,17 @@
 <p id="notice"><%= notice %></p>
-
 <h1>Listing Lists</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Text</th>
-      <th>Price</th>
-      <th>Quantity</th>
-      <th>Vat(20%)</th>
-      <th>Total</th>
-      <th>Product</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @lists.each do |list| %>
-      <tr>
-        <td><%= list.title %></td>
-        <td><%= list.description %></td>
-        <td><%= list.text %></td>
-        <td><%= list.price %></td>
-        <td><%= list.quantity %></td>
-        <td><%= list.vat %></td>
-        <td><%= list.total %></td>
-        <td><%= list.product_id %></td>
-        <td><%= link_to 'Show', list, class: 'btn btn-primary btn-xs' %></td>
-        <td><%= link_to 'Edit', edit_list_path(list), class: 'btn btn-info btn-xs' %></td>
-        <td><%= link_to 'Destroy', list, method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, :class => 'delete_list',  class: 'btn btn-danger btn-xs' %></td>
-</tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
+<%= form_tag lists_path, :method => 'get', :id => "lists_search", :remote => :true do %>
+  <p>
+    <%= text_field_tag :search, params[:search], :id => 'lists_searchs' %>
+    <%= submit_tag "Search", :name => nil, :class => 'searchs' %>
+  </p>
+<div id="lists"><%= render 'lists' %></div>
+<% end %>
+<%= will_paginate @lists, renderer: BootstrapPagination::Rails  %>
+<div class="btns">
 <%= link_to new_list_path, class: 'btn btn-success btn-xs' do %>
   <i class="glyphicon glyphicon-plus"></i> New List
 <% end %>
-
+<%= link_to 'Send Mail', send_email_path,  class: 'btn btn-warning btn-xs mail' %>
+</div>

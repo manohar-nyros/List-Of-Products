@@ -1,26 +1,33 @@
 class ListsController < ApplicationController
+  helper_method :sort_column, :sort_direction
   before_action :set_list, only: [:show, :edit, :update, :destroy]
 
   # GET /lists
   # GET /lists.json
   def index
-    @lists = List.all
+    @lists = List.search(params[:search]).order(sort_column + ' ' + sort_direction).paginate(:per_page => 3, :page => params[:page])
+    respond_to do |format|
+    format.html
+    format.js   
+    format.json { head :no_content }
+    end
   end
-
   # GET /lists/1
   # GET /lists/1.json
   def show
     # render 'new'
   end
-  def shows
-    # render 'new'
-  end
-
   # GET /lists/new
   def new
     @list = List.new
   end
 
+  def send_email
+    @lists = List.all
+    ExampleMailer.sent_product(@lists).deliver_now  
+    # redirect_to lists_path
+    render :index
+  end
   # GET /lists/1/edit
   def edit
   end
@@ -31,9 +38,8 @@ class ListsController < ApplicationController
     @list = List.new(list_params)
     respond_to do |format|
       if @list.save
-         # ExampleMailer.sent_product(@list).deliver_now
         format.html { redirect_to @list, notice: 'List was successfully created.' }
-        format.json { render :show, status: :created, location: @list }
+        format.json { render json: @list, status: :created, location: @list }
       else
         format.html { render :new }
         format.json { render json: @list.errors, status: :unprocessable_entity }
@@ -46,7 +52,6 @@ class ListsController < ApplicationController
   def update
     respond_to do |format|
       if @list.update(list_params)
-        ExampleMailer.sent_product(@list).deliver_now
         format.html { redirect_to @list, notice: 'List was successfully updated.' }
         format.json { render :show, status: :ok, location: @list }
       else
@@ -59,6 +64,7 @@ class ListsController < ApplicationController
   # DELETE /lists/1
   # DELETE /lists/1.json
   def destroy
+    @list.photo = nil
     @list.destroy
     respond_to do |format|
       format.html { redirect_to lists_url, notice: 'List was successfully destroyed.' }
@@ -74,6 +80,14 @@ class ListsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def list_params
-      params.require(:list).permit(:title, :description, :text, :price, :quantity, :vat, :total, :product_id)
+      params.require(:list).permit(:title, :description, :text, :price, :quantity, :photo, :vat, :total, :product_id )
     end
+
+  def sort_column
+    List.column_names.include?(params[:sort]) ? params[:sort] : "title" 
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+  end
 end
