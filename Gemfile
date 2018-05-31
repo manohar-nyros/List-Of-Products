@@ -42,6 +42,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem "capistrano", "~> 3.10", require: false
+  gem "capistrano-rails", "~> 1.3", require: false	
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 end
